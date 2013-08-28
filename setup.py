@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 __version__ = '0.1'
 
 setup(
-    name='granada',
+    name='slothpal',
     version=__version__,
     description='A RESTful PayPal Python client',
     author='Gregory Rehm',
