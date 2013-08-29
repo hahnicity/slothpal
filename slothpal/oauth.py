@@ -20,7 +20,7 @@ class OAuth(object):
         """
         return {
             "Accept": "application/json",
-            "Content-Type": "application/x-www-form-encoded"
+            "Content-Type": "application/x-www-form-urlencoded"
         }
 
     def get_token(self):
@@ -30,7 +30,7 @@ class OAuth(object):
         response = post(
             "".join([self.endpoint, OAUTH_ENDPOINT]),
             headers=self.get_headers(),
-            data={"grant_type", GRANT_TYPE},
+            data="grant_type={}".format(GRANT_TYPE),
             auth=(self.__id, self.__secret)
         )
         if response.status_code != 200:
