@@ -2,6 +2,8 @@
 slothpal.oauth
 ~~~~~~~~~~~~~~
 """
+from time import time
+
 from requests import post
 
 from slothpal.constants import GRANT_TYPE, OAUTH_ENDPOINT
@@ -13,6 +15,15 @@ class OAuth(object):
         self.endpoint = endpoint
         self.__id = id
         self.__secret = secret
+        self.__token_response = dict()
+
+    @property
+    def token(self):
+        return self.__token_response["access_token"]
+
+    @property
+    def expiry(self):
+        return self.__token_response["expires_in"] + self.time_of_response
 
     def get_headers(self):
         """
@@ -23,7 +34,7 @@ class OAuth(object):
             "Content-Type": "application/x-www-form-urlencoded"
         }
 
-    def get_token(self):
+    def request_token(self):
         """
         Get an OAuth2 token from PayPal
         """
@@ -33,7 +44,8 @@ class OAuth(object):
             data="grant_type={}".format(GRANT_TYPE),
             auth=(self.__id, self.__secret)
         )
+        self.time_of_response = time()
         if response.status_code != 200:
             raise StatusCodeError(response)
         else:
-            return response.json()["access_token"]
+            self.__token_response = response.json()
