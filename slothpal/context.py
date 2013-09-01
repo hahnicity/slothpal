@@ -5,11 +5,12 @@ slothpal.context
 from peak.util.proxies import ObjectProxy
 
 from slothpal import constants
+from slothpal.attributes import AttributeDict
 
 context = ObjectProxy(None)
 
 
-class PayPalContext(dict):
+class PayPalContext(AttributeDict):
     def __init__(self, **kwargs):
         self.update(kwargs)
 
@@ -18,7 +19,6 @@ class PayPalContext(dict):
         Push the configuration to the global proxy
         """
         if context.__subject__ is not self:
-            self._parent = context.__subject__
             context.__subject__ = self
         return self
 
@@ -27,7 +27,7 @@ class PayPalContext(dict):
         Reset the configuration object to its initial state
         """
         if context.__subject__ is self:
-            context.__subject__ = self._parent
+            context.__subject__ = None
 
     def __enter__(self):
         return self.push()
