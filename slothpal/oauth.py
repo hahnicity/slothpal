@@ -29,11 +29,12 @@ def make_consent_url(endpoint, client_id, **kwargs):
         redirect_uri
     """
     suffix = "&".join(
-        [client_id, "response_type={}".format(constants.CODE)] +
+        ["?client_id={}".format(client_id),
+         "response_type={}".format(constants.CODE)] +
         ["{}={}".format(key, value) for key, value in kwargs.iteritems()]
     )
     prefix = "".join([endpoint, constants.AUTHORIZE_ENDPOINT])
-    return "".join([suffix, prefix])
+    return "".join([prefix, suffix])
 
 
 class OAuth(object):
