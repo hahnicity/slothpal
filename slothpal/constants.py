@@ -3,7 +3,10 @@ slothpal.constants
 ~~~~~~~~~~~~~~~~~~
 """
 ## URL Endpoints ##
-OAUTH_ENDPOINT = "/v1/oauth2/token"
+IDENTITY_ENDPOINT = "/v1/identity/openidconnect/tokenservice"
+OAUTH2_ENDPOINT = "/v1/oauth2/token"
+USER_INFO_ENDPOINT = "/v1/identity/openidconnect/userinfo/?schema=openid"
 
-## Other ##
-GRANT_TYPE = "client_credentials"
+## Grant Types ##
+AUTH_CODE = "authorization_code"
+CLIENT_CRED = "client_credentials"
