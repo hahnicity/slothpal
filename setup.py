@@ -13,6 +13,7 @@ setup(
     setup_requires=[
     ],
     install_requires=[
+        "ProxyTypes>=0.9,<1.0",
         "requests>=1.2"
     ],
     tests_require=[
